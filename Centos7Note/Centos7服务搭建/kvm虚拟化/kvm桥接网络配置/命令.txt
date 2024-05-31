@@ -1,0 +1,49 @@
+
+ kvm快速安装
+1.查看cpu支付虚拟化吗
+egrep -o 'vmx|svm' /proc/cpuinfo 
+2.安装虚拟化
+[root@localhost ~]# yum groupinstall "Server with GUI" "Virtualization Host" -y 
+3.关闭防火墙 selinux
+systemctl stop firewalld && systemctl disbale firewalld 
+sed -i 's/SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
+setenforce 0 
+getenforce 
+systemctl start libvirtd
+systemctl enable libvirtd 
+
+
+配置网络：
+使用手动创建的过程：
+cd /etc/sysconfig/network-script     进入到网卡配置问价你的目录中
+
+
+ifcfg-em1 网卡实体物理的网卡
+TYPE=Ethernet
+NAME=em1
+DEVICE=em1
+BRIDGE="br0"
+ONBOOT=yes
+
+
+ifcfg-br0   桥接后的网卡
+TYPE=Bridge
+BOOTPROTO=static
+NAME=br0
+DEVICE=br0
+ONBOOT=yes
+IPADDR=192.168.200.11
+PREFIX=24
+GATEWAY=192.168.200.1
+DNS1=192.168.200.1
+DNS2=114.114.114.114
+
+
+
+
+
+
+
+
+
+

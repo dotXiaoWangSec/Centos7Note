@@ -1,0 +1,5 @@
+TYPE=Ethernet
+NAME=em1
+DEVICE=em1
+BRIDGE="br0"
+ONBOOT=yes
